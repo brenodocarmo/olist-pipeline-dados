@@ -45,7 +45,7 @@ def create_sellers_dataset(path, list_name):
     df["seller_name"] = full_name
 
     # Salvando o arquivo .csv na pasta base_de_dados
-    df.to_csv("base_de_dados/new_olist_sellers_dataset.csv", index=False)
+    df.to_csv("base_de_dados/olist_sellers_dataset.csv", index=False)
 
     return df
 
