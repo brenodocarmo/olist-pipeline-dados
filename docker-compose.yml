@@ -1,0 +1,12 @@
+services:
+  olist-postgres:
+    image: postgres:latest
+    volumes:
+      - /home/hunter/olist:/var/lib/postgresql/data
+    container_name: olist-postgres
+    environment:
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_USER: postgres
+    ports:
+      - "5437:5432"
+    restart: always
