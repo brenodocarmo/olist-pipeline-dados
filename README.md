@@ -22,11 +22,12 @@ Os dados são divididos em vários conjuntos de dados para melhor compreensão e
 
 
 ### Tecnologias
-- **Python(pandas)**: Ingestão de dados do schema public para a camada bronze.
-- **dbt**: Transformações e modelagem de dados (camadas prata e ouro).
-- **PostgreSQL**: Banco de dados local para todas as camadas.
-- **Git**: Versionamento do código e documentação.
-- **Docker**: Para hospedar a instância do postgres
+- [X] **Python(pandas)**: Ingestão de dados dos arquivos .csv no banco de dadas **olist_erp**. 
+- [ ] **Python(pandas)**: Ingestão de dados do schema public para a camada bronze.
+- [ ] **dbt**: Transformações e modelagem de dados (camadas prata e ouro).
+- [x] **PostgreSQL**: Banco de dados local para todas as camadas.
+- [ ] **Git**: Versionamento do código e documentação.
+- [x] **Docker**: Para hospedar a instância do postgres
 
 
 ### ✒️ Autor
