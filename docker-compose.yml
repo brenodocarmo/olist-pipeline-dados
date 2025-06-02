@@ -2,11 +2,23 @@ services:
   olist-postgres:
     image: postgres:latest
     volumes:
-      - /home/hunter/olist:/var/lib/postgresql/data
+      - /home/hunter/olist/olist_erp:/var/lib/postgresql/data
     container_name: olist-postgres
     environment:
-      POSTGRES_PASSWORD: 1234
-      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD_ERP}
+      POSTGRES_USER: ${POSTGRES_USER}
     ports:
       - "5437:5432"
+    restart: always
+  
+  olist-dw:
+    image: postgres:latest
+    volumes:
+      - /home/hunter/olist/olist_dw:/var/lib/postgresql/data
+    container_name: olist-dw
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD_DW}
+      POSTGRES_USER: ${POSTGRES_USER}
+    ports:
+      - "5438:5432"
     restart: always
