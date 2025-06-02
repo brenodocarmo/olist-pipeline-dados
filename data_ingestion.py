@@ -93,4 +93,4 @@ dados = create_connection(
 
 path_file = "base_de_dados"
 rename_file(path_file=path_file)
-# insert_table(path_file=path_file, db_connection=dados)
+insert_table(path_file=path_file, db_connection=dados)
