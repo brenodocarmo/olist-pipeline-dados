@@ -21,7 +21,7 @@ Os dados são divididos em vários conjuntos de dados para melhor compreensão e
 
 
 
-#### *Tecnologias*
+### *Tecnologias*
 - **Python(pandas)**: Ingestão de dados do schema public para a camada bronze.
 - **dbt**: Transformações e modelagem de dados (camadas prata e ouro).
 - **PostgreSQL**: Banco de dados local para todas as camadas.
