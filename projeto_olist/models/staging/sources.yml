@@ -1,0 +1,237 @@
+version: 2
+sources:
+  - name: raw_data
+    description: "Dados brutos do sistema e-commerce da Olist. Última atualização: 03/06/2025."
+    schema: raw_data
+    loader: postgres
+    tables:
+      - name: sellers
+        description: "Tabela de vendedores"
+        columns:
+          - name: seller_id
+            description: "Identificador único do vendedor"
+            data_tests:
+              - unique
+              - not_null
+
+          - name: seller_name
+            description: "Nome completo do vendedor"
+
+          - name: seller_city
+            description: "Nome da cidade do vendedor"
+
+          - name: seller_state
+            description: "Estado do vendedor (sigla UF)"
+            data_tests:
+              - not_null
+
+          - name: seller_zip_code_prefix
+            description: "Prefixo do CEP do vendedor"
+
+      - name: orders
+        description: "Tabela de pedidos"
+        columns:
+          - name: order_id
+            description: "Identificador único do pedido"
+            data_tests:
+              - unique
+              - not_null
+
+          - name: customer_id
+            description: "Chave para o conjunto de dados do cliente. Cada pedido possui um customer_id exclusivo."
+            data_tests:
+              - not_null
+
+          - name: order_status
+            description: "Status do pedido"
+            data_tests:
+              - not_null
+              
+          - name: order_purchase_timestamp
+            description: "Data e hora da compra"
+            data_tests:
+              - not_null
+
+          - name: order_approved_at
+            description: "Data e hora da aprovação do pedido"
+
+          - name: order_delivered_carrier_date
+            description: "Data e hora da postagem do pedido, quando entregue ao parceiro logístico"
+
+          - name: order_delivered_customer_date
+            description: "Data real de entrega do pedido ao cliente"
+
+          - name: order_estimated_delivery_date
+            description: "Data estimada de entrega informada ao cliente no momento da compra"
+      
+      - name: customers
+        description: "Tabela de parceiros"
+        columns:
+          - name: customer_id
+            description: "Identificador único do parceiro por pedido"
+            data_tests:
+              - not_null
+
+          - name: customer_city
+            description: "Cidade do parceiro"
+
+          - name: customer_state
+            description: "Estado do parceiro"
+
+          - name: customer_unique_id
+            description: "Identificador único do parceiro (permanente)"
+            data_tests:
+              - not_null
+
+          - name: customer_zip_code_prefix
+            description: "Cep do parceiro"
+
+      - name: order_items
+        description: "Tabela que contém os itens de cada pedido, incluindo preço, frete e identificação do produto e vendedor."
+        columns:
+          - name: order_id
+            description: "Id pedido"
+            data_tests:
+              - not_null
+
+          - name: order_item_id
+            description: "Número sequencial do item no pedido"
+            data_tests:
+              - not_null
+
+          - name: product_id
+            description: "Id produto"
+            data_tests:
+              - not_null
+
+          - name: seller_id
+            description: "Id vendedor"
+            data_tests:
+              - not_null
+
+          - name: shipping_limit_date
+            description: "Data limite para o vendedor enviar o item ao parceiro logístico"
+            data_tests:
+              - not_null
+
+          - name: price
+            description: "Preço"
+            data_tests:
+              - not_null
+
+          - name: freight_value
+            description: "Valor do frete"
+            data_tests:
+              - not_null   
+
+      - name: products
+        description: "Tabela que contém informações dos produtos, como categoria, dimensões e peso."
+        columns:
+          - name: product_id
+            description: "Tabela que contém informações dos produtos, como categoria, dimensões e peso."
+            columns:
+              - name: product_id
+                description: "Identificador único do produto"
+                data_tests:
+                  - unique
+                  - not_null
+              - name: product_category_name
+                description: "Nome da categoria do produto"
+
+              - name: product_name_lenght
+                description: "Tamanho do nome do produto (em caracteres)"
+
+              - name: product_description_lenght
+                description: "Tamanho da descrição do produto (em caracteres)"
+
+              - name: product_photos_qty
+                description: "Quantidade de fotos do produto"
+
+              - name: product_weight_g
+                description: "Peso do produto em gramas"
+
+              - name: product_width_cm
+                description: "Largura do produto em centímetros"
+
+              - name: product_height_cm
+                description: "Altura do produto em centímetros"
+
+              - name: product_length_cm
+                description: "Comprimento do produto em centímetros"
+
+      - name: product_category_name
+        description: "Tabela que contém informações dos produtos, como categoria, dimensões e peso."
+        columns:
+          - name: product_category_name
+            description: "Nome da categoria do produto"
+
+      - name: order_reviews
+        description: "Tabela que contém as avaliações dos pedidos, incluindo nota, comentários e datas de criação e resposta."
+        columns:
+          - name: order_id
+            description: "Identificador único do pedido"
+            data_tests:
+              - not_null
+
+          - name: review_id
+            description: "Identificador único da avaliação"
+            data_tests:
+              - not_null
+
+          - name: review_score
+            description: "Nota da avaliação (de 1 a 5)"
+            data_tests:
+              - not_null
+              - accepted_values:
+                  values: [1, 2, 3, 4, 5]
+
+          - name: review_comment_title
+            description: "Título do comentário da avaliação"
+
+          - name: review_creation_date
+            description: "Data de criação da avaliação"
+
+          - name: review_comment_message
+            description: "Texto do comentário da avaliação"
+
+          - name: review_answer_timestamp
+            description: "Data e hora da resposta à avaliação"
+
+      - name: order_payments
+        description: "Pagamento de pedido"
+        columns:
+          - name: order_id
+            description: "Identificador único do pedido"
+
+          - name: payment_type
+            description: "Tipo de pagamento"
+
+          - name: payment_value
+            description: "Valor total do pagamento para o item sequencial"
+
+          - name: payment_sequential
+            description: "Número sequencial do pagamento dentro de um pedido"
+
+          - name: payment_installments
+            description: "Número de parcelas do pagamento"
+
+      - name: geolocation
+        description: "Tabela que contém informações geográficas associadas a CEPs, incluindo latitude, longitude, cidade e estado, para análises geoespaciais"
+        columns:
+          - name: geolocation_zip_code_prefix
+            description: "Prefixo do CEP (primeiros 5 dígitos) associado à localização"
+
+          - name: geolocation_lat
+            description: "Latitude da localização associada ao prefixo do CEP"
+
+          - name: geolocation_lng
+            description: "Longitude da localização associada ao prefixo do CEP"
+
+          - name: geolocation_city
+            description: "Nome da cidade associada ao prefixo do CEP"
+
+          - name: geolocation_state
+            description: "Sigla do estado (UF) associado ao prefixo do CEP"
+
+
+

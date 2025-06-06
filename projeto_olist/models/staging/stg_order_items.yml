@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: stg_order_items
+    description: "Modelo de staging para itens de pedidos, com colunas renomeadas e tratamentos básicos."
+    columns:
+      - name: id_pedido
+        description: "Identificador único do pedido (renomeado de order_id)"
+        data_tests:
+          - not_null
+      - name: num_sequencial_item
+        description: "Número sequencial do item no pedido (anteriomente era order_item_id)"
+        data_tests:
+          - not_null
+      - name: id_produto
+        description: "Identificador único do produto (anteriomente era product_id)"
+        data_tests:
+          - not_null
+      - name: id_vendedor
+        description: "Identificador único do vendedor (anteriomente era seller_id)"
+        data_tests:
+          - not_null
+      - name: data_limite_envio
+        description: "Data limite para o vendedor enviar o item ao parceiro logístico (anteriomente era shipping_limit_date)"
+        data_tests:
+          - not_null
+      - name: preco
+        description: "Preço do item (anteriomente era price)"
+        data_tests:
+          - not_null
+      - name: valor_frete
+        description: "Valor do frete do item (anteriomente era freight_value)"
+        data_tests:
+          - not_null

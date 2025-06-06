@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: "Modelo de staging para clientes, com colunas renomeadas e tratamentos básicos."
+    columns:
+      - name: id_parceiro
+        description: "Identificador único do parceiro por pedido (anteriomente era customer_id)"
+        data_tests:
+          - not_null
+      - name: id_unico_parceiro
+        description: "Identificador único permanente do parceiro (anteriomente era customer_unique_id)"
+        data_tests:
+          - not_null
+      - name: cidade
+        description: "Cidade do parceiro (anteriomente era customer_city)"
+      - name: estado
+        description: "Estado do parceiro (anteriomente era customer_city)"
+      - name: uf
+        description: "Sigla do estado (UF) do parceiro (anteriomente era customer_state)"
+      - name: prefixo_cep
+        description: "Prefixo do CEP do parceiro (anteriomente era customer_zip_code_prefix)"

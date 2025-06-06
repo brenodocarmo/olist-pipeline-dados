@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: stg_geolocation
+    description: "Modelo de staging para dados geográficos, com cidades normalizadas e colunas renomeadas."
+    columns:
+      - name: prefixo_cep
+        description: "Prefixo do CEP associado à localização (anteriomente era geolocation_zip_code_prefix)"
+        data_tests:
+          - not_null
+      - name: latitude
+        description: "Latitude da localização (anteriomente era geolocation_lat)"
+        data_tests:
+          - not_null
+      - name: longitude
+        description: "Longitude da localização (anteriomente era geolocation_lng)"
+        data_tests:
+          - not_null
+      - name: cidade
+        description: "Nome da cidade normalizado (anteriomente era geolocation_city)"
+      - name: estado
+        description: "Sigla do estado associado ao CEP (anteriomente era geolocation_state)"
+        data_tests:
+          - not_null

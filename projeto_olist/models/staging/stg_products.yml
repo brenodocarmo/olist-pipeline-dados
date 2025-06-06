@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: stg_products
+    description: "Modelo de staging para produtos, com colunas renomeadas e tratamento de nulos."
+    columns:
+      - name: id_produto
+        description: "Identificador único do produto (anteriomente era product_id)"
+        data_tests:
+          - unique
+          - not_null
+      - name: categoria_produto
+        description: "Categoria do produto, com 'sem_categoria' para valores nulos (anteriomente era product_category_name)"
+        data_tests:
+          - not_null
+      - name: tamanho_nome
+        description: "Tamanho do nome do produto em caracteres (anteriomente era product_name_lenght)"
+      - name: tamanho_descricao
+        description: "Tamanho da descrição do produto em caracteres (anteriomente era product_description_lenght)"
+      - name: qtde_fotos
+        description: "Quantidade de fotos do produto (anteriomente era product_photos_qty)"
+      - name: peso_gramas
+        description: "Peso do produto em gramas (anteriomente era product_weight_g)"
+      - name: largura_cm
+        description: "Largura do produto em centímetros (anteriomente era product_width_cm)"
+      - name: altura_cm
+        description: "Altura do produto em centímetros (anteriomente era product_height_cm)"
+      - name: comprimento_cm
+        description: "Comprimento do produto em centímetros (anteriomente era product_length_cm)"

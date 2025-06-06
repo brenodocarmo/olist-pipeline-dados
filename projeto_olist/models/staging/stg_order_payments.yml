@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: stg_order_payments
+    description: "Modelo de staging para pagamentos de pedidos, com colunas renomeadas e tratamentos básicos."
+    columns:
+      - name: id_pedido
+        description: "Identificador único do pedido (anteriomente era order_id)"
+        data_tests:
+          - not_null
+      - name: tipo_pagamento
+        description: "Tipo de pagamento (anteriomente era payment_type)"
+      - name: valor_pagamento
+        description: "Valor total do pagamento para o item sequencial (anteriomente era payment_value)"
+        data_tests:
+          - not_null
+      - name: sequencial_pagamento
+        description: "Número sequencial do pagamento dentro de um pedido (anteriomente era payment_sequential)"
+      - name: qtde_parcelas
+        description: "Número de parcelas do pagamento (anteriomente era payment_installments)"
+        data_tests:
+          - not_null
