@@ -1,0 +1,205 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: "Modelo de staging para clientes, com colunas renomeadas e tratamentos básicos."
+    columns:
+      - name: id_parceiro
+        description: "Identificador único do parceiro por pedido (anteriomente era customer_id)"
+        data_tests:
+          - not_null
+      - name: id_unico_parceiro
+        description: "Identificador único permanente do parceiro (anteriomente era customer_unique_id)"
+        data_tests:
+          - not_null
+      - name: cidade
+        description: "Cidade do parceiro (anteriomente era customer_city)"
+      - name: estado
+        description: "Estado do parceiro (anteriomente era customer_city)"
+      - name: uf
+        description: "Sigla do estado (UF) do parceiro (anteriomente era customer_state)"
+      - name: prefixo_cep
+        description: "Prefixo do CEP do parceiro (anteriomente era customer_zip_code_prefix)"
+
+  - name: stg_geolocation
+    description: "Modelo de staging para dados geográficos, com cidades normalizadas e colunas renomeadas."
+    columns:
+      - name: prefixo_cep
+        description: "Prefixo do CEP associado à localização (anteriomente era geolocation_zip_code_prefix)"
+        data_tests:
+          - not_null
+      - name: latitude
+        description: "Latitude da localização (anteriomente era geolocation_lat)"
+        data_tests:
+          - not_null
+      - name: longitude
+        description: "Longitude da localização (anteriomente era geolocation_lng)"
+        data_tests:
+          - not_null
+      - name: cidade
+        description: "Nome da cidade normalizado (anteriomente era geolocation_city)"
+      - name: estado
+        description: "Sigla do estado associado ao CEP (anteriomente era geolocation_state)"
+        data_tests:
+          - not_null
+
+  - name: stg_order_items
+    description: "Modelo de staging para itens de pedidos, com colunas renomeadas e tratamentos básicos."
+    columns:
+      - name: id_pedido
+        description: "Identificador único do pedido (renomeado de order_id)"
+        data_tests:
+          - not_null
+      - name: num_sequencial_item
+        description: "Número sequencial do item no pedido (anteriomente era order_item_id)"
+        data_tests:
+          - not_null
+      - name: id_produto
+        description: "Identificador único do produto (anteriomente era product_id)"
+        data_tests:
+          - not_null
+      - name: id_vendedor
+        description: "Identificador único do vendedor (anteriomente era seller_id)"
+        data_tests:
+          - not_null
+      - name: data_limite_envio
+        description: "Data limite para o vendedor enviar o item ao parceiro logístico (anteriomente era shipping_limit_date)"
+        data_tests:
+          - not_null
+      - name: preco
+        description: "Preço do item (anteriomente era price)"
+        data_tests:
+          - not_null
+      - name: valor_frete
+        description: "Valor do frete do item (anteriomente era freight_value)"
+        data_tests:
+          - not_null
+
+  - name: stg_order_payments
+    description: "Modelo de staging para pagamentos de pedidos, com colunas renomeadas e tratamentos básicos."
+    columns:
+      - name: id_pedido
+        description: "Identificador único do pedido (anteriomente era order_id)"
+        data_tests:
+          - not_null
+      - name: tipo_pagamento
+        description: "Tipo de pagamento (anteriomente era payment_type)"
+      - name: valor_pagamento
+        description: "Valor total do pagamento para o item sequencial (anteriomente era payment_value)"
+        data_tests:
+          - not_null
+      - name: sequencial_pagamento
+        description: "Número sequencial do pagamento dentro de um pedido (anteriomente era payment_sequential)"
+      - name: qtde_parcelas
+        description: "Número de parcelas do pagamento (anteriomente era payment_installments)"
+        data_tests:
+          - not_null
+
+  - name: stg_order_reviews
+    description: "Modelo de staging para avaliações de pedidos, com colunas renomeadas e tratamentos básicos."
+    columns:
+      - name: id_pedido
+        description: "Identificador único do pedido (anteriomente era order_id)"
+        data_tests:
+          - not_null
+      - name: id_avaliacao
+        description: "Identificador único da avaliação (anteriomente era review_id)"
+        data_tests:
+          - unique
+          - not_null
+      - name: nota_avaliacao
+        description: "Nota da avaliação, de 1 a 5 (anteriomente era review_score)"
+        data_tests:
+          - not_null
+
+      - name: titulo_avaliacao
+        description: "Título do comentário da avaliação (anteriomente era review_comment_title)"
+      - name: data_avaliacao
+        description: "Data de criação da avaliação (anteriomente era review_creation_date)"
+      - name: comentario
+        description: "Texto do comentário da avaliação (anteriomente era review_comment_message)"
+      - name: data_resposta_avaliacao
+        description: "Data e hora da resposta à avaliação (anteriomente era review_answer_timestamp)"
+
+  - name: stg_orders
+    description: "Modelo de staging para pedidos, com colunas renomeadas e tratamentos básicos."
+    columns:
+      - name: id_pedido
+        description: "Identificador único do pedido (anteriomente era order_id)"
+        data_tests:
+          - unique
+          - not_null
+      - name: id_parceiro
+        description: "Identificador único do parceiro por pedido (anteriomente era customer_id)"
+        data_tests:
+          - not_null
+      - name: situ_pedido
+        description: "Situação do pedido (anteriomente era order_status)"
+        data_tests:
+          - not_null
+        
+      - name: data_compra
+        description: "Data e hora da compra (anteriomente era order_purchase_timestamp)"
+        data_tests:
+          - not_null
+      - name: pedido_aprovado_em
+        description: "Data e hora da aprovação do pedido (anteriomente era order_approved_at)"
+      - name: data_entrega_transportadora
+        description: "Data e hora da entrega ao parceiro logístico (anteriomente era order_delivered_carrier_date)"
+      - name: data_entrega_parceiro
+        description: "Data real de entrega ao parceiro (anteriomente era order_delivered_customer_date)"
+      - name: data_estimada_entrega
+        description: "Data estimada de entrega informada ao parceiro (anteriomente era order_estimated_delivery_date)"
+
+  - name: stg_product_category_name
+    description: "Modelo de staging para traduções dos nomes das categorias de produtos, com colunas renomeadas."
+    columns:
+      - name: categoria_produto
+        description: "Nome da categoria do produto em português (anteriomente era product_category_name)"
+
+
+  - name: stg_products
+    description: "Modelo de staging para produtos, com colunas renomeadas e tratamento de nulos."
+    columns:
+      - name: id_produto
+        description: "Identificador único do produto (anteriomente era product_id)"
+        data_tests:
+          - unique
+          - not_null
+      - name: categoria_produto
+        description: "Categoria do produto, com 'sem_categoria' para valores nulos (anteriomente era product_category_name)"
+        data_tests:
+          - not_null
+      - name: tamanho_nome
+        description: "Tamanho do nome do produto em caracteres (anteriomente era product_name_lenght)"
+      - name: tamanho_descricao
+        description: "Tamanho da descrição do produto em caracteres (anteriomente era product_description_lenght)"
+      - name: qtde_fotos
+        description: "Quantidade de fotos do produto (anteriomente era product_photos_qty)"
+      - name: peso_gramas
+        description: "Peso do produto em gramas (anteriomente era product_weight_g)"
+      - name: largura_cm
+        description: "Largura do produto em centímetros (anteriomente era product_width_cm)"
+      - name: altura_cm
+        description: "Altura do produto em centímetros (anteriomente era product_height_cm)"
+      - name: comprimento_cm
+        description: "Comprimento do produto em centímetros (anteriomente era product_length_cm)"
+
+  - name: stg_sellers
+    description: "Modelo de staging para dados de vendedores, com colunas renomeadas e tratamentos básicos."
+    columns:
+      - name: id_vendedor
+        description: "Identificador único do vendedor (anteriomente era seller_id)"
+        data_tests:
+          - unique
+          - not_null
+      - name: nome_completo
+        description: "Nome completo do vendedor (anteriomente era seller_name)"
+      - name: cidade
+        description: "Cidade do vendedor (anteriomente era seller_city)"
+      - name: uf
+        description: "Sigla do estado (UF) do vendedor (anteriomente era seller_state)"
+        data_tests:
+          - not_null
+      - name: cep
+        description: "CEP do vendedor (anteriomente era seller_zip_code_prefix)"
