@@ -11,8 +11,12 @@ WITH source AS (
 normalizacao AS (
     SELECT
         COALESCE(
-            INITCAP(product_category_name), 'sem_categoria') AS categoria_produto
+            INITCAP(product_category_name), 'sem_categoria') AS categoria_produto,
+            current_timestamp as etl_data_insercao
     FROM source
 )
 
-SELECT * FROM normalizacao
+SELECT 
+    categoria_produto,
+    etl_data_insercao
+FROM normalizacao

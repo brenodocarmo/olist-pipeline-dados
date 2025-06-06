@@ -42,7 +42,8 @@ nomalizacao_estados AS (
         END AS estado,
         customer_state AS uf,
         customer_unique_id AS id_unico_parceiro,
-        customer_zip_code_prefix AS prefixo_cep
+        customer_zip_code_prefix AS prefixo_cep,
+        current_timestamp as etl_data_insercao
     FROM source
 )
 
@@ -52,5 +53,6 @@ SELECT
     cidade,
     estado,
     uf,
-    prefixo_cep
+    prefixo_cep,
+    etl_data_insercao
 FROM nomalizacao_estados

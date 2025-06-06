@@ -31,7 +31,8 @@ transformado AS (
         COALESCE(DATE(order_approved_at)) AS pedido_aprovado_em,
         COALESCE(DATE(order_delivered_carrier_date), '1902-01-01') AS data_entrega_transportadora,
         COALESCE(DATE(order_delivered_customer_date), '1902-01-01') AS data_entrega_parceiro,
-        COALESCE(DATE(order_estimated_delivery_date), '1902-01-01') AS data_estimada_entrega
+        COALESCE(DATE(order_estimated_delivery_date), '1902-01-01') AS data_estimada_entrega,
+        current_timestamp as etl_data_insercao
 
     FROM source
 )
@@ -44,5 +45,6 @@ SELECT
     pedido_aprovado_em,
     data_entrega_transportadora,
     data_entrega_parceiro,
-    data_estimada_entrega
+    data_estimada_entrega,
+    etl_data_insercao
 FROM transformado

@@ -17,7 +17,8 @@ nomalizacao AS (
         seller_id AS id_vendedor, 
         DATE(shipping_limit_date) AS data_limite_envio, 
         price AS preco, 
-        freight_value AS valor_frete
+        freight_value AS valor_frete,
+        current_timestamp as etl_data_insercao
     FROM source
 )
 SELECT
@@ -27,6 +28,7 @@ SELECT
     id_vendedor,
     data_limite_envio,
     preco, 
-    valor_frete  
+    valor_frete,
+    current_timestamp as etl_data_insercao  
 
 FROM nomalizacao

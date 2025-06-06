@@ -44,7 +44,8 @@ normalizacao_estado AS (
         END AS estado,
             
         seller_state AS uf,
-       seller_zip_code_prefix AS cep
+       seller_zip_code_prefix AS cep,
+       current_timestamp as etl_data_insercao
     FROM source
 ),
 
@@ -80,7 +81,8 @@ normalizacao_cidade AS (
         END AS cidade,
         estado,
         uf,
-        cep
+        cep,
+        etl_data_insercao
     FROM normalizacao_estado
 
 )
@@ -90,5 +92,6 @@ SELECT
     nome_completo,
     cidade,
     uf,
-    cep
+    cep,
+    etl_data_insercao
 FROM normalizacao_cidade

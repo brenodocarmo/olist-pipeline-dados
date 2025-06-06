@@ -19,7 +19,8 @@ normalizacao AS (
         COALESCE(product_weight_g, 0) AS peso_gramas,
         COALESCE(product_width_cm, 0) AS largura_cm,
         COALESCE(product_height_cm, 0) AS altura_cm,
-        COALESCE(product_length_cm, 0) AS comprimento_cm
+        COALESCE(product_length_cm, 0) AS comprimento_cm,
+        current_timestamp as etl_data_insercao
 
     FROM source
 )
@@ -34,6 +35,7 @@ SELECT
     peso_gramas,
     largura_cm,
     altura_cm,
-    comprimento_cm
+    comprimento_cm,
+    etl_data_insercao
 
 FROM normalizacao

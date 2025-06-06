@@ -1,9 +1,0 @@
-version: 2
-
-models:
-  - name: stg_product_category_name
-    description: "Modelo de staging para traduções dos nomes das categorias de produtos, com colunas renomeadas."
-    columns:
-      - name: categoria_produto
-        description: "Nome da categoria do produto em português (anteriomente era product_category_name)"
-

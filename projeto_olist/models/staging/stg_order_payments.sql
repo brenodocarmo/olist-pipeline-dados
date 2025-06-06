@@ -20,9 +20,18 @@ nomalizacao AS (
         END AS tipo_pagamento,
         payment_value AS valor_pagamento,
         payment_sequential AS sequencial_pagamento,
-        payment_installments AS qtde_parcelas
+        payment_installments AS qtde_parcelas,
+        current_timestamp as etl_data_insercao
     FROM source
 )
 
 
-SELECT * FROM nomalizacao
+SELECT
+    id_pedido,
+    tipo_pagamento,
+    valor_pagamento,
+    sequencial_pagamento,
+    qtde_parcelas,
+    etl_data_insercao
+
+FROM nomalizacao
